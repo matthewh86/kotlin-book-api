@@ -5,8 +5,10 @@ import com.example.domain.BookSearch
 
 interface BookRepository {
 
-    fun getByIsbn(isbn: String): Book?
+    fun getById(id: String): Book?
+    fun getByIsbn(isbn: String): List<Book>
     fun searchBook(book: BookSearch): List<Book>
     fun addBook(book: Book): Book
+    fun checkoutBook(id: String): Book?
 
 }

@@ -9,7 +9,7 @@ class BookServiceImpl : BookService {
     // TODO: use koin for DI
     private val bookRepository = BookRepositoryImpl();
 
-    override fun getByIsbn(isbn: String): Book? {
+    override fun getByIsbn(isbn: String): List<Book> {
         return bookRepository.getByIsbn(isbn)
     }
 
@@ -19,6 +19,16 @@ class BookServiceImpl : BookService {
 
     override fun addBook(book: Book): Book {
         return bookRepository.addBook(book);
+    }
+
+    override fun borrowBook(book: BookSearch): Book? {
+        val availableBook = bookRepository.searchBook(book)
+            .filter { book -> book.checkedOut == false }
+            .firstOrNull()
+        if (availableBook != null) {
+            bookRepository.checkoutBook(availableBook.id)
+        }
+        return availableBook;
     }
 
 }

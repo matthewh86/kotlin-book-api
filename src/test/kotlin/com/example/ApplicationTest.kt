@@ -18,9 +18,12 @@ class ApplicationTest {
     private val mapper = ObjectMapper().registerModule(KotlinModule())
 
     private val expectedBook = Book(
-        "1234567890123",
-        "Over the Cliff",
-        "Eileen Dover",
+        id = "1234567890123-1",
+        isbn = "1234567890123",
+        title = "Over the Cliff",
+        author = "Eileen Dover",
+        reference = false,
+        checkedOut = false,
     )
 
     @Test
@@ -35,7 +38,7 @@ class ApplicationTest {
     fun getByIsbn_returnsExpectedBook() = testApplication {
         client.get("/books/1234567890123").apply {
             assertEquals(HttpStatusCode.OK, status)
-            assertEquals(expectedBook, mapper.readValue(bodyAsText()))
+            assertEquals(listOf(expectedBook), mapper.readValue(bodyAsText()))
         }
     }
 

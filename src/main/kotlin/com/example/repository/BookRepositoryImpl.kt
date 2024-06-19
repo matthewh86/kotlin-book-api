@@ -6,11 +6,13 @@ import java.util.Objects.isNull
 
 class BookRepositoryImpl : BookRepository {
 
-    private val books: List<Book> = listOf(
-        Book(
-            "1234567890123",
-            "Over the Cliff",
-            "Eileen Dover",
+    private var books: MutableList<Book> = ArrayList(
+        listOf(
+            Book(
+                "1234567890123",
+                "Over the Cliff",
+                "Eileen Dover",
+            )
         )
     )
 
@@ -41,6 +43,11 @@ class BookRepositoryImpl : BookRepository {
                 authorFilter(bookSearch),
             ).all { it(candidate) }
         }
+    }
+
+    override fun addBook(book: Book): Book {
+        books.add(book)
+        return book;
     }
 
 }

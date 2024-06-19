@@ -17,4 +17,8 @@ class BookServiceImpl : BookService {
         return bookRepository.searchBook(bookSearch)
     }
 
+    override fun addBook(book: Book): Book {
+        return bookRepository.addBook(book);
+    }
+
 }

@@ -79,4 +79,16 @@ class BookRepositoryImplTest {
         assertEquals(ArrayList(), underTest.searchBook(search))
     }
 
+    @Test
+    fun addBook_addsTheBook() {
+        val book = Book(
+            isbn = "0000000000001",
+            title = "Hutt Economics",
+            author = "Jabba the Hutt",
+        )
+
+        assertEquals(book, underTest.addBook(book))
+        assertEquals(book, underTest.getByIsbn("0000000000001"))
+    }
+
 }

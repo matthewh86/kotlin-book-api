@@ -7,5 +7,6 @@ interface BookService {
 
     fun getByIsbn(isbn: String): Book?
     fun bookSearch(bookSearch: BookSearch): List<Book>
+    fun addBook(book: Book): Book
 
 }

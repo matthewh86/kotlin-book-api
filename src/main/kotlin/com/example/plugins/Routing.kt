@@ -1,5 +1,6 @@
 package com.example.plugins
 
+import com.example.domain.Book
 import com.example.domain.BookSearch
 import com.example.service.BookServiceImpl
 import io.ktor.http.*
@@ -28,6 +29,14 @@ fun Application.configureRouting() {
             val bookSearch = call.receive<BookSearch>()
             if (bookSearch != null) {
                 val book = bookService.bookSearch(bookSearch)!!
+                call.respond(book)
+            }
+            call.respond(HttpStatusCode.BadRequest)
+        }
+        put("/books") {
+            val book = call.receive<Book>()
+            if (book != null) {
+                val book = bookService.addBook(book)!!
                 call.respond(book)
             }
             call.respond(HttpStatusCode.BadRequest)

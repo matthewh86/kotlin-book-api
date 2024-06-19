@@ -36,6 +36,29 @@ class BookServiceImplTest {
     }
 
     @Test
+    fun booksBorrowed_returnsMapOfBorrowedBooks() {
+        val bookSearch = BookSearch(
+            isbn = "1234567890123",
+        )
+
+        val newBook = expected.copy(id = null)
+        expected.checkedOut = true
+
+        underTest.addBook(newBook)
+        underTest.addBook(newBook)
+        underTest.addBook(newBook)
+
+        underTest.borrowBook(bookSearch)
+        underTest.borrowBook(bookSearch)
+
+        assertEquals(
+            mapOf(
+                Pair("1234567890123", 2)
+            ), underTest.booksBorrowed()
+        )
+    }
+
+    @Test
     fun checkoutBook_returnsEmpty_ifNoAvailableBook() {
         val bookSearch = BookSearch(
             isbn = "1234567890123",

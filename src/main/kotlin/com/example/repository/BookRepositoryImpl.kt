@@ -7,7 +7,7 @@ import java.util.Objects.isNull
 class BookRepositoryImpl : BookRepository {
 
     //TODO this is probably very inefficient
-    private var books: MutableList<Book> = ArrayList(
+    var books: MutableList<Book> = ArrayList(
         listOf(
             Book(
                 Pair("1234567890123", 1),

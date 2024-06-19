@@ -33,4 +33,11 @@ class BookServiceImpl : BookService {
         return availableBook;
     }
 
+    override fun booksBorrowed(): Map<String, Int> {
+        return bookRepository.books.filter { book -> book.checkedOut }
+            .asSequence()
+            .groupingBy { it.isbn }
+            .eachCount()
+    }
+
 }

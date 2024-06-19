@@ -15,12 +15,12 @@ class BookRepositoryImplTest {
     )
 
     @Test
-    fun getBookByIsbn_returnsRequestedBook() {
-        assertEquals(expected, underTest.getBookByIsbn("1234567890123"))
+    fun getBookByIsbn_returnsRequested() {
+        assertEquals(expected, underTest.getByIsbn("1234567890123"))
     }
     @Test
-    fun getBookByIsbn_returnsNoBook() {
-        assertNull(underTest.getBookByIsbn("nobook"))
+    fun getBookByIsbn_returnsNo() {
+        assertNull(underTest.getByIsbn("nobook"))
     }
 
 }

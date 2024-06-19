@@ -1,8 +1,8 @@
-package com.example.repository
+package com.example.service
 
 import com.example.domain.Book
 
-interface BookRepository {
+interface BookService {
 
     fun getByIsbn(isbn: String) : Book?
 

@@ -10,7 +10,7 @@ class BookRepositoryImpl : BookRepository {
     "Eileen Dover",
     )
 
-    override fun getBookByIsbn(isbn: String) : Book? {
+    override fun getByIsbn(isbn: String) : Book? {
         if (book.isbn.equals(isbn))
             return book
         return null

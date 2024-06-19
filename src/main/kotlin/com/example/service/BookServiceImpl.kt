@@ -1,6 +1,7 @@
 package com.example.service
 
 import com.example.domain.Book
+import com.example.domain.BookSearch
 import com.example.repository.BookRepositoryImpl
 
 class BookServiceImpl : BookService {
@@ -10,6 +11,10 @@ class BookServiceImpl : BookService {
 
     override fun getByIsbn(isbn: String): Book? {
         return bookRepository.getByIsbn(isbn)
+    }
+
+    override fun bookSearch(bookSearch: BookSearch): List<Book> {
+        return bookRepository.searchBook(bookSearch)
     }
 
 }

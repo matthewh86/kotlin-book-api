@@ -46,4 +46,22 @@ class BookServiceImplTest {
         assertEquals(1, underTest.getByIsbn("1234567890123").size)
     }
 
+    @Test
+    fun checkoutBook_returnsEmpty_ifBookIsReference() {
+        val bookSearch = BookSearch(
+            isbn = "0000000000001",
+        )
+        val book = Book(
+            isbn = "0000000000001",
+            title = "Hutt Economics",
+            author = "Jabba the Hutt",
+            reference = true,
+        )
+        underTest.addBook(book)
+
+        underTest.borrowBook(bookSearch)
+        assertNull(underTest.borrowBook(bookSearch))
+        assertEquals(1, underTest.getByIsbn("0000000000001").size)
+    }
+
 }

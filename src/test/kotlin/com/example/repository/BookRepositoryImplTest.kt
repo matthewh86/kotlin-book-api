@@ -100,7 +100,7 @@ class BookRepositoryImplTest {
             isbn = "0000000000001",
             title = "Hutt Economics",
             author = "Jabba the Hutt",
-            reference = false,
+            reference = true,
         )
 
         underTest.addBook(book)

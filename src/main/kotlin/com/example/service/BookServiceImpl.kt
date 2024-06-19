@@ -27,6 +27,7 @@ class BookServiceImpl : BookService {
     override fun borrowBook(book: BookSearch): Book? {
         val availableBook = bookRepository.searchBook(book)
             .filter { book -> !book.checkedOut }
+            .filter { book -> !book.reference }
             .firstOrNull()
         availableBook?.id?.let { bookRepository.checkoutBook(it) }
         return availableBook;

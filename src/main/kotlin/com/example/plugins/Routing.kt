@@ -27,11 +27,8 @@ fun Application.configureRouting() {
         }
         post("/books") {
             val bookSearch = call.receive<BookSearch>()
-            if (bookSearch != null) {
-                val book = bookService.bookSearch(bookSearch)!!
-                call.respond(book)
-            }
-            call.respond(HttpStatusCode.BadRequest)
+            val book = bookService.bookSearch(bookSearch)!!
+            call.respond(book)
         }
         put("/books") {
             val book = call.receive<Book>()

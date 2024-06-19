@@ -10,7 +10,7 @@ class BookRepositoryImpl : BookRepository {
     private var books: MutableList<Book> = ArrayList(
         listOf(
             Book(
-                "1234567890123-1",
+                Pair("1234567890123", 1),
                 "1234567890123",
                 "Over the Cliff",
                 "Eileen Dover",
@@ -21,7 +21,7 @@ class BookRepositoryImpl : BookRepository {
     )
 
     private fun idFilter(bookSearch: BookSearch) =
-        { book: Book -> isNull(bookSearch.id) || book.id.equals(bookSearch.id) }
+        { book: Book -> isNull(bookSearch.id) || book.id?.equals(bookSearch.id) ?: true }
 
     private fun isbnFilter(bookSearch: BookSearch) =
         { book: Book -> isNull(bookSearch.isbn) || book.isbn.equals(bookSearch.isbn) }
@@ -38,7 +38,7 @@ class BookRepositoryImpl : BookRepository {
     private fun checkedOutFilter(bookSearch: BookSearch) =
         { book: Book -> isNull(bookSearch.checkedOut) || book.checkedOut.equals(bookSearch.checkedOut) }
 
-    override fun getById(id: String): Book? {
+    override fun getById(id: Pair<String, Int>): Book? {
         return books.filter(
             idFilter(
                 BookSearch(
@@ -72,11 +72,22 @@ class BookRepositoryImpl : BookRepository {
     }
 
     override fun addBook(book: Book): Book {
-        books.add(book)
-        return book;
+        val newBook = book.copy()
+        val results = searchBook(
+            BookSearch(
+                isbn = book.isbn,
+                title = book.title,
+                author = book.author,
+                reference = book.reference,
+            )
+        )
+
+        newBook.id = Pair(book.isbn, results.size + 1)
+        books.add(newBook)
+        return newBook;
     }
 
-    override fun checkoutBook(id: String): Book? {
+    override fun checkoutBook(id: Pair<String, Int>): Book? {
         val availableBook = getById(id)
         if (availableBook != null) {
             availableBook.checkedOut = true

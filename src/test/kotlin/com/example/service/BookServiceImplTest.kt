@@ -15,7 +15,7 @@ class BookServiceImplTest {
     @BeforeTest
     fun beforeTest() {
         expected = Book(
-            id = "1234567890123-1",
+            id = Pair("1234567890123", 1),
             isbn = "1234567890123",
             title = "Over the Cliff",
             author = "Eileen Dover",

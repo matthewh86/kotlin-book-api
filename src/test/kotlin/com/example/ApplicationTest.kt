@@ -18,7 +18,7 @@ class ApplicationTest {
     private val mapper = ObjectMapper().registerModule(KotlinModule())
 
     private val expectedBook = Book(
-        id = "1234567890123-1",
+        id = Pair("1234567890123", 1),
         isbn = "1234567890123",
         title = "Over the Cliff",
         author = "Eileen Dover",

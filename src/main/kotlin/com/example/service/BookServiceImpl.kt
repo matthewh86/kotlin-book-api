@@ -18,16 +18,17 @@ class BookServiceImpl : BookService {
     }
 
     override fun addBook(book: Book): Book {
+        if (book.id != null) {
+            throw IllegalArgumentException("ID must not be specified")
+        }
         return bookRepository.addBook(book);
     }
 
     override fun borrowBook(book: BookSearch): Book? {
         val availableBook = bookRepository.searchBook(book)
-            .filter { book -> book.checkedOut == false }
+            .filter { book -> !book.checkedOut }
             .firstOrNull()
-        if (availableBook != null) {
-            bookRepository.checkoutBook(availableBook.id)
-        }
+        availableBook?.id?.let { bookRepository.checkoutBook(it) }
         return availableBook;
     }
 

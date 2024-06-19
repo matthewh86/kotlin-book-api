@@ -9,7 +9,7 @@ class BookRepositoryImplTest {
 
     private val underTest = BookRepositoryImpl()
     private val expected = Book(
-        id = "1234567890123-1",
+        id = Pair("1234567890123", 1),
         isbn = "1234567890123",
         title = "Over the Cliff",
         author = "Eileen Dover",
@@ -84,16 +84,32 @@ class BookRepositoryImplTest {
     @Test
     fun addBook_addsTheBook() {
         val book = Book(
-            id = "0000000000001-1",
             isbn = "0000000000001",
             title = "Hutt Economics",
             author = "Jabba the Hutt",
             reference = false,
-            checkedOut = false,
         )
 
         assertEquals(book, underTest.addBook(book))
         assertEquals(book, underTest.getByIsbn("0000000000001").firstOrNull())
+    }
+
+    @Test
+    fun addBook_addsMultipleBooksAndSetsIds() {
+        val book = Book(
+            isbn = "0000000000001",
+            title = "Hutt Economics",
+            author = "Jabba the Hutt",
+            reference = false,
+        )
+
+        underTest.addBook(book)
+        underTest.addBook(book)
+        underTest.addBook(book)
+        assertEquals(3, underTest.getByIsbn("0000000000001").size)
+        assertEquals(1, underTest.getByIsbn("0000000000001").get(0).id?.second)
+        assertEquals(2, underTest.getByIsbn("0000000000001").get(1).id?.second)
+        assertEquals(3, underTest.getByIsbn("0000000000001").get(2).id?.second)
     }
 
 }

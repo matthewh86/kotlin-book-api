@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class BookSearch(
-    val id: String? = null,
+    val id: Pair<String?, Int?>? = null,
     val isbn: String? = null,
     val title: String? = null,
     val author: String? = null,

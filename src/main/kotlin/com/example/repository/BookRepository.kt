@@ -4,6 +4,6 @@ import com.example.domain.Book
 
 interface BookRepository {
 
-    fun getBookByIsbn(isbn: String) : Book
+    fun getBookByIsbn(isbn: String) : Book?
 
 }

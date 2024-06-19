@@ -3,6 +3,7 @@ package com.example.repository
 import com.example.domain.Book
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertNull
 
 class BookRepositoryImplTest {
 
@@ -14,8 +15,12 @@ class BookRepositoryImplTest {
     )
 
     @Test
-    fun returnsRequestedBook() {
+    fun getBookByIsbn_returnsRequestedBook() {
         assertEquals(expected, underTest.getBookByIsbn("1234567890123"))
+    }
+    @Test
+    fun getBookByIsbn_returnsNoBook() {
+        assertNull(underTest.getBookByIsbn("nobook"))
     }
 
 }
